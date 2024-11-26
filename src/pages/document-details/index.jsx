@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
 import api from '../../api';
 import PageContent from '../../components/page-content';
 import PageHeader from '../../components/page-header';
@@ -6,8 +7,10 @@ import PageHeader from '../../components/page-header';
 export const DocumentDetails = (props) => {
     const [document, setDocument] = useState({});
 
+    const params = useParams();
+
     useEffect(() => {
-        api.get(`/documents/${props.match.params.id}`)
+        api.get(`/documents/${params.id}`)
             .then(response => setDocument(response.data))
             .catch(error => console.log(error));
     }, []);
@@ -34,7 +37,13 @@ export const DocumentDetails = (props) => {
                     {document?.active}
                 </div>
                 <div>
-                    {document?.processes}
+                    <ul>
+                    {
+                        document.processes && document.processes.map(process => (
+                            <li key={process.id}>{process.name}</li>
+                        ))
+                    }
+                    </ul>
                 </div>
             </PageContent>
         </div>

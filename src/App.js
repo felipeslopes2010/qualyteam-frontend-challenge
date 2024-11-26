@@ -19,7 +19,9 @@ const App = () => {
                 <Route path="/list" exact>
                     <DocumentMasterList />
                 </Route>
-                <Route path="/document-details/:id" exact component={DocumentDetails} />
+                <Route path="/document-details/:id" exact >
+                    <DocumentDetails />
+                </Route>
             </Switch>
         </main>
     </Router>
