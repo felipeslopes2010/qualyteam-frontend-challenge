@@ -1,0 +1,9 @@
+.filter-documents-button {
+    padding: 0.375rem 0.75rem;
+    border: 1px solid transparent !important;
+    border-radius: 0.25rem !important;
+
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}

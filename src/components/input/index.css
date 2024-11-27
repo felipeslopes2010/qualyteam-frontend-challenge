@@ -1,0 +1,12 @@
+.document-filter-input {
+    display: flex;
+    flex-direction: column;
+
+    > input {
+        width: 16rem;
+    }
+}
+
+.document-filter-input > label {
+    margin-right: 0.5rem;
+}
