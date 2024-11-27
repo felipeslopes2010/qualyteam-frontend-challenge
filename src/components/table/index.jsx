@@ -60,24 +60,26 @@ const Table = ({ header, rows, itemsPerPage }) => {
 
     return (
         <div>
-            <ReactstrapTable hover>
-                <thead>
-                    <tr>
-                        {header.map((h, index) => <th key={`header-${index}`}>{h.title}</th>)}
-                    </tr>
-                </thead>
-                <tbody>
-                    {rowsToRender.map((row, index) => (
-                        <tr key={`row-${index}`} onClick={row.onClick || noop}>
-                            {header.map((h, index) =>
-                                <td key={`data-${index}`}>
-                                    {row[h.column]}
-                                </td>
-                            )}
+            <div className="table-container">
+                <ReactstrapTable hover>
+                    <thead>
+                        <tr>
+                            {header.map((h, index) => <th key={`header-${index}`}>{h.title}</th>)}
                         </tr>
-                    ))}
-                </tbody>
-            </ReactstrapTable>
+                    </thead>
+                    <tbody>
+                        {rowsToRender.map((row, index) => (
+                            <tr key={`row-${index}`} onClick={row.onClick || noop}>
+                                {header.map((h, index) =>
+                                    <td key={`data-${index}`}>
+                                        {row[h.column]}
+                                    </td>
+                                )}
+                            </tr>
+                        ))}
+                    </tbody>
+                </ReactstrapTable>
+            </div>
             {itemsPerPage &&
                 <div className="table-pagination">
                     <Button onClick={handlePreviousPageButton} disabled={page === 1}>
@@ -93,6 +95,7 @@ const Table = ({ header, rows, itemsPerPage }) => {
             }
         </div>
     );
+    
 }
 
 Table.propTypes = {

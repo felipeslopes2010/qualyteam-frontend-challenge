@@ -12,3 +12,25 @@
 
     padding: 0px 16px;
 }
+
+@media screen and (max-width: 1024px) {
+    .table-container {
+        overflow-x: auto;
+        margin: 0 2rem;
+    }
+
+    table {
+        min-width: 1000px;
+    }
+
+    .table-pagination {
+        margin: 1.5rem 2rem 0 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .table-pagination {
+        justify-content: center;
+        margin: 1.5rem auto;
+    }
+}
