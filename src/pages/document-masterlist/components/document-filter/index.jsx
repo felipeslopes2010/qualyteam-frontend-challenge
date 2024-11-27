@@ -1,4 +1,3 @@
-
 import { Input } from '../../../../components/input';
 import { Button } from '../../../../components/button';
 
@@ -18,28 +17,30 @@ export const DocumentFilter = ({ onFilter }) => {
         filteredProcess = event.target.value;
     }
     
-    function handleSearchDocumentsUsingFilter(filteredTitle, filteredProcess) {
-        if (filteredTitle) {
-            api.get(`/documents?q=${filteredTitle}`)
-                .then(response => {
-                    onFilter(response.data);
-                })
-                .catch(error => console.log(error));
-        }
-    
-        else if(filteredProcess) {
-            api.get(`/documents?q=${filteredProcess}`)
-                .then(response => {
-                    onFilter(response.data);
-                })
-                .catch(error => console.log(error));
-        }
-        else {
-            api.get(`/documents`)
-            .then(response => {
+    async function handleSearchDocumentsUsingFilter(filteredTitle, filteredProcess) {
+        try {
+            if (filteredTitle) {
+                const response = await api.get(`/documents?title_like=${filteredTitle}`);
                 onFilter(response.data);
-            })
-            .catch(error => console.log(error));
+            } else if (filteredProcess) {
+                const processResponse = await api.get(`/processes?name_like=${filteredProcess}`);
+                const processIds = processResponse.data.map(process => process.id);
+
+                if (processIds.length > 0) {
+                    const documentResponse = await api.get(`/documents`);
+                    const filteredDocuments = documentResponse.data.filter(document =>
+                        document.processes.some(process => processIds.includes(process.id))
+                    );
+                    onFilter(filteredDocuments);
+                } else {
+                    onFilter([]);
+                }
+            } else {
+                const response = await api.get(`/documents`);
+                onFilter(response.data);
+            }
+        } catch (error) {
+            console.error(error);
         }
     }
 
