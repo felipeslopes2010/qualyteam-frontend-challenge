@@ -1,0 +1,11 @@
+.select-filter-input {
+    width: 16rem;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.select-filter-input > select {
+    height: 1.875rem;
+    padding: 0 0.5rem;
+}
