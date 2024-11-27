@@ -4,8 +4,9 @@ import api from '../../api';
 import PageContent from '../../components/page-content';
 import PageHeader from '../../components/page-header';
 import Table from '../../components/table';
+import { DocumentFilter } from './components/document-filter';
 
-export const DocumentMasterList = (props) => {
+export const DocumentMasterList = () => {
     const [documents, setDocuments] = useState([]);
     const [formattedRows, setFormattedRows] = useState([]);
 
@@ -42,12 +43,18 @@ export const DocumentMasterList = (props) => {
             .catch(error => console.log(error));
     }, []);
 
+    function handleFilterResults(filteredDocuments) {
+        setFormattedRows(mapDocumentsToRows(filteredDocuments));
+    }
+
     return (
         <div>
             <PageHeader title="Master List" />
             <PageContent>
+                <DocumentFilter onFilter={handleFilterResults} />
                 <Table header={header} rows={formattedRows} itemsPerPage={5} />
             </PageContent>
         </div>
     );
 };
+

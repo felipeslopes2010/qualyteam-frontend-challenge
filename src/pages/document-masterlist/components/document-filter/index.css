@@ -1,0 +1,16 @@
+.document-filter-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    
+    margin-bottom: 1.5rem;
+
+    > button {
+        border: 0;
+    }
+}
+
+.document-filter-fields-wrapper {
+    display: flex;
+    gap: 1.5rem;
+}

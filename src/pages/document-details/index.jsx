@@ -4,7 +4,7 @@ import api from '../../api';
 import PageContent from '../../components/page-content';
 import PageHeader from '../../components/page-header';
 
-export const DocumentDetails = (props) => {
+export const DocumentDetails = () => {
     const [document, setDocument] = useState({});
 
     const params = useParams();
