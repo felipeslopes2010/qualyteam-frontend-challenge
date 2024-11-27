@@ -12,16 +12,34 @@ export const DocumentFilter = ({ onFilter }) => {
     function handleTitleFilter(event) {
         filteredTitle = event.target.value;
     }
-    
+
     function handleProcessFilter(event) {
         filteredProcess = event.target.value;
     }
-    
+
     async function handleSearchDocumentsUsingFilter(filteredTitle, filteredProcess) {
         try {
-            if (filteredTitle) {
-                const response = await api.get(`/documents?title_like=${filteredTitle}`);
-                onFilter(response.data);
+            if (filteredTitle && filteredProcess) {
+                const documentsResponse = await api.get(`/documents?title_like=${filteredTitle}`);
+
+                const processResponse = await api.get(`/processes?name_like=${filteredProcess}`);
+                const processIds = processResponse.data.map(process => process.id);
+        
+                const documentsWithProcesses = documentsResponse.data.filter(document =>
+                    document.processes.some(process => processIds.includes(process.id))
+                );
+        
+                console.log(documentsWithProcesses);
+        
+                if (documentsWithProcesses.length > 0) {
+                    onFilter(documentsWithProcesses);
+                } else {
+                    onFilter([]);
+                }
+            }
+            else if (filteredTitle) {
+                const documentsResponse = await api.get(`/documents?title_like=${filteredTitle}`);
+                onFilter(documentsResponse.data);
             } else if (filteredProcess) {
                 const processResponse = await api.get(`/processes?name_like=${filteredProcess}`);
                 const processIds = processResponse.data.map(process => process.id);
