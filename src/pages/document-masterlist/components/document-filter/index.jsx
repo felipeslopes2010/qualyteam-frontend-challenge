@@ -5,12 +5,13 @@ import { Select } from '../../../../components/select';
 
 import api from '../../../../api';
 
-import "./index.css";
+import './index.css';
 
 export const DocumentFilter = ({ onFilter }) => {
-    const [filteredTitle, setFilteredTitle] = useState("");
-    const [filteredProcess, setFilteredProcess] = useState("");
+    const [filteredTitle, setFilteredTitle] = useState('');
+    const [filteredProcess, setFilteredProcess] = useState('');
     const [processes, setProcesses] = useState([]);
+    const [shouldFilterAfterErase, setShouldFilterAfterErase] = useState(false);
 
     async function handleSearchDocumentsUsingFilter() {
         try {
@@ -18,10 +19,10 @@ export const DocumentFilter = ({ onFilter }) => {
                 const documentsResponse = await api.get(`/documents?title_like=${filteredTitle}`);
 
                 const processResponse = await api.get(`/processes?name_like=${filteredProcess}`);
-                const processIds = processResponse.data.map(process => process.id);
+                const processIds = processResponse.data.map((process) => process.id);
 
-                const documentsWithProcesses = documentsResponse.data.filter(document =>
-                    document.processes.some(process => processIds.includes(process.id))
+                const documentsWithProcesses = documentsResponse.data.filter((document) =>
+                    document.processes.some((process) => processIds.includes(process.id))
                 );
 
                 if (documentsWithProcesses.length > 0) {
@@ -34,12 +35,12 @@ export const DocumentFilter = ({ onFilter }) => {
                 onFilter(documentsResponse.data);
             } else if (filteredProcess) {
                 const processResponse = await api.get(`/processes?name_like=${filteredProcess}`);
-                const processIds = processResponse.data.map(process => process.id);
+                const processIds = processResponse.data.map((process) => process.id);
 
                 if (processIds.length > 0) {
                     const documentResponse = await api.get(`/documents`);
-                    const filteredDocuments = documentResponse.data.filter(document =>
-                        document.processes.some(process => processIds.includes(process.id))
+                    const filteredDocuments = documentResponse.data.filter((document) =>
+                        document.processes.some((process) => processIds.includes(process.id))
                     );
                     onFilter(filteredDocuments);
                 } else {
@@ -54,6 +55,12 @@ export const DocumentFilter = ({ onFilter }) => {
         }
     }
 
+    function handleEraseFilterInput() {
+        setFilteredTitle('');
+        setFilteredProcess('');
+        setShouldFilterAfterErase(true);
+    }
+
     useEffect(() => {
         async function fetchProcesses() {
             try {
@@ -66,6 +73,13 @@ export const DocumentFilter = ({ onFilter }) => {
         fetchProcesses();
     }, []);
 
+    useEffect(() => {
+        if (shouldFilterAfterErase) {
+            handleSearchDocumentsUsingFilter();
+            setShouldFilterAfterErase(false);
+        }
+    }, [shouldFilterAfterErase]);
+
     return (
         <div className="document-filter-container">
             <div className="document-filter-fields-wrapper">
@@ -73,19 +87,21 @@ export const DocumentFilter = ({ onFilter }) => {
                     id="document-title-filter"
                     placeholder="Enter a title"
                     label="Title"
+                    value={filteredTitle}
                     onChange={(e) => setFilteredTitle(e.target.value)}
                 />
                 <Select
                     id="document-processes-filter"
                     label="Processes"
                     processes={processes}
+                    value={filteredProcess}
                     onChange={(e) => setFilteredProcess(e.target.value)}
                 />
             </div>
-            <Button
-                title="Filter"
-                onClick={handleSearchDocumentsUsingFilter}
-            />
+            <div className="document-filter-buttons-wrapper">
+                <Button title="Erase" onClick={handleEraseFilterInput} />
+                <Button title="Filter" onClick={handleSearchDocumentsUsingFilter} />
+            </div>
         </div>
     );
 };

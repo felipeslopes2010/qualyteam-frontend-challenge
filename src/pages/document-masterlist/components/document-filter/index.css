@@ -17,6 +17,13 @@
     gap: 1.5rem;
 }
 
+.document-filter-buttons-wrapper {
+    display: flex;
+    align-items: center;
+
+    gap: 1.5rem;
+}
+
 @media screen and (max-width: 1024px) {
     .document-filter-container {
         margin: 0 2rem;
