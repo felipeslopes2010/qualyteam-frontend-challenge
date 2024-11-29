@@ -94,7 +94,7 @@ export const DocumentFilter = ({ onFilter }) => {
                 <Select
                     id="document-processes-filter"
                     label="Processes"
-                    processes={processes}
+                    options={processes}
                     value={filteredProcess}
                     onChange={(e) => setFilteredProcess(e.target.value)}
                 />
