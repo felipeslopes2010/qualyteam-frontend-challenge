@@ -1,8 +1,7 @@
-.document-filter-input {
-    display: flex;
-    flex-direction: column;
-
+div {
     > input {
+        display: flex;
+        flex-direction: column;
         width: 16rem;
     }
 }

@@ -1,7 +1,14 @@
 import "./index.css";
 
-export const Button = ({ type="button", title, onClick }) => {
+export const Button = ({ title, className, type="button", onClick, ...rest }) => {
     return (
-        <button className="filter-documents-button" type={type} onClick={onClick}>{title}</button>
+        <button
+            className={className}
+            type={type}
+            onClick={onClick}
+            {...rest}
+        >
+            {title}
+        </button>
     )
 }

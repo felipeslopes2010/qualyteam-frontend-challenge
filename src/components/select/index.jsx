@@ -4,7 +4,7 @@ export const Select = ({ id, label, processes, ...rest }) => {
     const uniqueProcesses = Array.from(new Set(processes.map(process => process.name)));
 
     return (
-        <div className="select-filter-input">
+        <div className="select-input">
             <label htmlFor={id}>{label}</label>
             <select id={id} {...rest}>
                 <option value="">Select a process</option>

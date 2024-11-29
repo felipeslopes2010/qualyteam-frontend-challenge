@@ -24,6 +24,10 @@
     gap: 1.5rem;
 }
 
+.document-filter-erase {
+    opacity: 0.65;
+}
+
 @media screen and (max-width: 1024px) {
     .document-filter-container {
         margin: 0 2rem;

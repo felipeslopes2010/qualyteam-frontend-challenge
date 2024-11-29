@@ -85,6 +85,7 @@ export const DocumentFilter = ({ onFilter }) => {
             <div className="document-filter-fields-wrapper">
                 <Input
                     id="document-title-filter"
+                    className="document-filter-input"
                     placeholder="Enter a title"
                     label="Title"
                     value={filteredTitle}
@@ -99,7 +100,7 @@ export const DocumentFilter = ({ onFilter }) => {
                 />
             </div>
             <div className="document-filter-buttons-wrapper">
-                <Button title="Erase" onClick={handleEraseFilterInput} />
+                <Button title="Erase" className="document-filter-erase" onClick={handleEraseFilterInput} />
                 <Button title="Filter" onClick={handleSearchDocumentsUsingFilter} />
             </div>
         </div>
