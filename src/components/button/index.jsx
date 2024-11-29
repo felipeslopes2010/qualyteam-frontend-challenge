@@ -1,6 +1,6 @@
 import "./index.css";
 
-export const Button = ({ title, className, type="button", onClick, ...rest }) => {
+export const Button = ({ title, children, className, type="button", onClick, ...rest }) => {
     return (
         <button
             className={className}
@@ -9,6 +9,7 @@ export const Button = ({ title, className, type="button", onClick, ...rest }) =>
             {...rest}
         >
             {title}
+            {children}
         </button>
     )
 }

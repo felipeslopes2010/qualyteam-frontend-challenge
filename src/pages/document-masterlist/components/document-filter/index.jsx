@@ -3,6 +3,9 @@ import { Input } from '../../../../components/input';
 import { Button } from '../../../../components/button';
 import { Select } from '../../../../components/select';
 
+import { RxEraser } from "react-icons/rx";
+import { TfiSearch } from "react-icons/tfi";
+
 import api from '../../../../api';
 
 import './index.css';
@@ -100,8 +103,12 @@ export const DocumentFilter = ({ onFilter }) => {
                 />
             </div>
             <div className="document-filter-buttons-wrapper">
-                <Button title="Erase" className="document-filter-erase" onClick={handleEraseFilterInput} />
-                <Button title="Filter" onClick={handleSearchDocumentsUsingFilter} />
+                <Button title="Erase" className="document-filter-erase" onClick={handleEraseFilterInput}>
+                    <RxEraser size={16} />
+                </Button>
+                <Button title="Filter" onClick={handleSearchDocumentsUsingFilter}>
+                    <TfiSearch size={16} />
+                </Button>
             </div>
         </div>
     );

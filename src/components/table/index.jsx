@@ -4,6 +4,9 @@ import { Button, Table as ReactstrapTable } from 'reactstrap';
 import { noop } from '@babel/types';
 import './index.css';
 
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+
+
 // Example of use
 
 {/* <Table
@@ -83,13 +86,13 @@ const Table = ({ header, rows, itemsPerPage }) => {
             {itemsPerPage &&
                 <div className="table-pagination">
                     <Button onClick={handlePreviousPageButton} disabled={page === 1}>
-                        Anterior
+                        <MdKeyboardArrowLeft size={22} />
                     </Button>
                     <div className="table-pagination--page-display">
                         {page} / {totalPages}
                     </div>
                     <Button onClick={handleNextPageButton} disabled={page >= totalPages}>
-                        Próxima
+                    <MdKeyboardArrowRight size={22} />
                     </Button>
                 </div>
             }
