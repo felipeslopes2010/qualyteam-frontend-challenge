@@ -4,6 +4,7 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import api from '../../api';
 import { DocumentMasterList } from './index';
 import { DocumentFilter } from './components/document-filter';
+import Table from '../../components/table';
 
 const mockedDocuments = [
     {
@@ -104,6 +105,32 @@ describe('DocumentMasterList', () => {
 
         expect(onFilterMock).toHaveBeenCalledTimes(1);
         expect(onFilterMock).toHaveBeenCalledWith(mockedDocuments);
+    });
+
+    it('should render "No documents found" if theres no documents to show', async () => {
+        const onFilterMock = jest.fn();
+        const header = [{ title: 'Title', column: 'title' }];
+        const rows = [];
+        const setPage = jest.fn();
+
+        render(<DocumentFilter onFilter={onFilterMock} />);
+        render(<Table header={header} rows={rows} itemsPerPage={3} page={1} setPage={setPage} />);
+
+        const titleFilterInput = screen.getByRole('textbox', { name: /title/i });
+
+        await act(async () => {
+            fireEvent.change(titleFilterInput, { target: { value: 'Test' } });
+        });
+
+        expect(titleFilterInput).toHaveValue('Test');
+
+        const filterButton = screen.getByRole('button', { name: /filter/i });
+
+        await act(async () => {
+            fireEvent.click(filterButton);
+        });
+
+        expect(screen.getByText('No documents found')).toBeInTheDocument();
     });
 
 

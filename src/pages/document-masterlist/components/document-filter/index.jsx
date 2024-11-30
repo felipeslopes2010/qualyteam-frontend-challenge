@@ -70,7 +70,7 @@ export const DocumentFilter = ({ onFilter }) => {
                 const processResponse = await api.get('/processes');
                 setProcesses(processResponse.data);
             } catch (error) {
-                console.error('Erro ao buscar processos:', error);
+                console.error('Error to find process:', error);
             }
         }
         fetchProcesses();
