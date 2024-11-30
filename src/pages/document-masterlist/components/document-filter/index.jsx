@@ -84,7 +84,7 @@ export const DocumentFilter = ({ onFilter }) => {
     }, [shouldFilterAfterErase]);
 
     return (
-        <div className="document-filter-container">
+        <div className="document-filter-container" aria-label="Document Filter">
             <div className="document-filter-fields-wrapper">
                 <Input
                     id="document-title-filter"
@@ -103,10 +103,10 @@ export const DocumentFilter = ({ onFilter }) => {
                 />
             </div>
             <div className="document-filter-buttons-wrapper">
-                <Button title="Erase" className="document-filter-erase" onClick={handleEraseFilterInput}>
+                <Button title="Erase" aria-label="Erase" className="document-filter-erase" onClick={handleEraseFilterInput}>
                     <RxEraser size={16} />
                 </Button>
-                <Button title="Filter" onClick={handleSearchDocumentsUsingFilter}>
+                <Button title="Filter" aria-label="Filter" onClick={handleSearchDocumentsUsingFilter}>
                     <TfiSearch size={16} />
                 </Button>
             </div>
