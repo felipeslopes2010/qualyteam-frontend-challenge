@@ -28,7 +28,7 @@
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 860px) {
     .table-pagination {
         justify-content: center;
         margin: 1.5rem auto;

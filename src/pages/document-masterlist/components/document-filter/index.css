@@ -34,7 +34,7 @@
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 860px) {
     .document-filter-container {
         flex-direction: column;
         align-items: center;
