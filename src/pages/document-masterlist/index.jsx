@@ -9,6 +9,7 @@ import { DocumentFilter } from './components/document-filter';
 export const DocumentMasterList = () => {
     const [documents, setDocuments] = useState([]);
     const [formattedRows, setFormattedRows] = useState([]);
+    const [page, setPage] = useState(1);
 
     const history = useHistory();
 
@@ -45,6 +46,7 @@ export const DocumentMasterList = () => {
 
     function handleFilterResults(filteredDocuments) {
         setFormattedRows(mapDocumentsToRows(filteredDocuments));
+        setPage(1);
     }
 
     return (
@@ -52,9 +54,8 @@ export const DocumentMasterList = () => {
             <PageHeader title="Master List" />
             <PageContent>
                 <DocumentFilter onFilter={handleFilterResults} />
-                <Table header={header} rows={formattedRows} itemsPerPage={5} />
+                <Table header={header} rows={formattedRows} itemsPerPage={5} setPage={setPage} page={page} />
             </PageContent>
         </div>
     );
 };
-

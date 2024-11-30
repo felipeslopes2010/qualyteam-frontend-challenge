@@ -35,9 +35,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
     itemsPerPage={3}
 /> */}
 
-const Table = ({ header, rows, itemsPerPage }) => {
-
-    const [page, setPage] = useState(1);
+const Table = ({ header, rows, itemsPerPage, page, setPage }) => {
 
     const totalItems = rows.length;
     const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -92,18 +90,20 @@ const Table = ({ header, rows, itemsPerPage }) => {
                         {page} / {totalPages}
                     </div>
                     <Button onClick={handleNextPageButton} disabled={page >= totalPages} aria-label="Next">
-                    <MdKeyboardArrowRight size={22} />
+                        <MdKeyboardArrowRight size={22} />
                     </Button>
                 </div>
             }
         </div>
     );
-    
 }
 
 Table.propTypes = {
     rows: PropTypes.array.isRequired,
     header: PropTypes.array.isRequired,
+    itemsPerPage: PropTypes.number.isRequired,
+    page: PropTypes.number.isRequired,
+    setPage: PropTypes.func.isRequired
 }
 
 export default Table;
