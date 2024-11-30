@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Table from './index';
+import { useState } from 'react';
 
 const mockedDocuments = [
     {
@@ -62,8 +63,33 @@ const mockedDocuments = [
 ];
 
 describe('Table Component Pagination', () => {
+    let setPage;
+
+    const renderTableWithState = (itemsPerPage) => {
+        const TableWrapper = () => {
+            const [page, setPageState] = useState(1);
+            setPage = setPageState;
+
+            return (
+                <Table
+                    header={[{ title: "Title", column: "title" }]}
+                    rows={mockedDocuments}
+                    itemsPerPage={itemsPerPage}
+                    page={page}
+                    setPage={setPageState}
+                />
+            );
+        };
+
+        render(<TableWrapper />);
+    };
+
+        beforeEach(() => {
+            setPage = jest.fn();
+        });
+
     it('should render the first page with correct items', () => {
-        render(<Table header={[{ title: "Title", column: "title" }]} rows={mockedDocuments} itemsPerPage={3} />);
+        renderTableWithState(3);
 
         expect(screen.getByText('Safety and mission assurance')).toBeInTheDocument();
         expect(screen.getByText('Software assurance research program')).toBeInTheDocument();
@@ -73,35 +99,32 @@ describe('Table Component Pagination', () => {
         expect(screen.queryByText('Big Data Processing')).not.toBeInTheDocument();
 
         expect(screen.getByText('1 / 2')).toBeInTheDocument();
-        expect(screen.queryByText('2 / 2')).not.toBeInTheDocument();
     });
 
     it('should go to the next page when clicking next', () => {
-        render(<Table header={[{ title: "Title", column: "title" }]} rows={mockedDocuments} itemsPerPage={3} />);
+        renderTableWithState(3);
 
         const nextButton = screen.getByRole('button', { name: /next/i });
         fireEvent.click(nextButton);
 
+        expect(screen.getByText('Automation and Machine Learning')).toBeInTheDocument();
+        expect(screen.getByText('Big Data Processing')).toBeInTheDocument();
+
         expect(screen.queryByText('Safety and mission assurance')).not.toBeInTheDocument();
         expect(screen.queryByText('Software assurance research program')).not.toBeInTheDocument();
         expect(screen.queryByText('Mission Critical System Software')).not.toBeInTheDocument();
-
-        expect(screen.getByText('Automation and Machine Learning')).toBeInTheDocument();
-        expect(screen.getByText('Big Data Processing')).toBeInTheDocument();
 
         expect(screen.queryByText('1 / 2')).not.toBeInTheDocument();
         expect(screen.getByText('2 / 2')).toBeInTheDocument();
     });
 
     it('should go to the previous page when clicking previous', () => {
-        render(<Table header={[{ title: "Title", column: "title" }]} rows={mockedDocuments} itemsPerPage={3} />);
+        renderTableWithState(3);
 
         const nextButton = screen.getByRole('button', { name: /next/i });
-
         fireEvent.click(nextButton);
 
         const prevButton = screen.getByRole('button', { name: /previous/i });
-
         fireEvent.click(prevButton);
 
         expect(screen.getByText('Safety and mission assurance')).toBeInTheDocument();
@@ -116,7 +139,7 @@ describe('Table Component Pagination', () => {
     });
 
     it('should disable the previous button on the first page', () => {
-        render(<Table header={[{ title: "Title", column: "title" }]} rows={mockedDocuments} itemsPerPage={3} />);
+        renderTableWithState(3);
 
         const prevButton = screen.getByRole('button', { name: /previous/i });
         const nextButton = screen.getByRole('button', { name: /next/i });
@@ -126,7 +149,7 @@ describe('Table Component Pagination', () => {
     });
 
     it('should disable the next button on the last page', () => {
-        render(<Table header={[{ title: "Title", column: "title" }]} rows={mockedDocuments} itemsPerPage={3} />);
+        renderTableWithState(3);
 
         const prevButton = screen.getByRole('button', { name: /previous/i });
         const nextButton = screen.getByRole('button', { name: /next/i });

@@ -74,7 +74,7 @@ const Table = ({ header, rows, itemsPerPage, page, setPage }) => {
                             isEmptyState(rowsToRender) ? (
                                 <tr className="no-documents-found">
                                     <td colSpan={header.length} className="no-documents-message">
-                                        Nenhum documento encontrado
+                                        No documents found
                                     </td>
                                 </tr>
                             ) : (
