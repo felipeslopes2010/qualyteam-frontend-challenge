@@ -85,13 +85,13 @@ const Table = ({ header, rows, itemsPerPage }) => {
             </div>
             {itemsPerPage &&
                 <div className="table-pagination">
-                    <Button onClick={handlePreviousPageButton} disabled={page === 1}>
+                    <Button onClick={handlePreviousPageButton} disabled={page === 1} aria-label="Previous">
                         <MdKeyboardArrowLeft size={22} />
                     </Button>
                     <div className="table-pagination--page-display">
                         {page} / {totalPages}
                     </div>
-                    <Button onClick={handleNextPageButton} disabled={page >= totalPages}>
+                    <Button onClick={handleNextPageButton} disabled={page >= totalPages} aria-label="Next">
                     <MdKeyboardArrowRight size={22} />
                     </Button>
                 </div>
