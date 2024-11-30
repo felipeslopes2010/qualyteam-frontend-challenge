@@ -38,7 +38,8 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 const Table = ({ header, rows, itemsPerPage, page, setPage }) => {
 
     const totalItems = rows.length;
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+    const isEmptyState = (rows) => rows.length === 0;
 
     const handleNextPageButton = () => {
         if (page < totalPages) {
@@ -69,15 +70,25 @@ const Table = ({ header, rows, itemsPerPage, page, setPage }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {rowsToRender.map((row, index) => (
-                            <tr key={`row-${index}`} onClick={row.onClick || noop}>
-                                {header.map((h, index) =>
-                                    <td key={`data-${index}`}>
-                                        {row[h.column]}
+                        {
+                            isEmptyState(rowsToRender) ? (
+                                <tr className="no-documents-found">
+                                    <td colSpan={header.length} className="no-documents-message">
+                                        Nenhum documento encontrado
                                     </td>
-                                )}
-                            </tr>
-                        ))}
+                                </tr>
+                            ) : (
+                                rowsToRender.map((row, index) => (
+                                    <tr key={`row-${index}`} onClick={row.onClick || noop}>
+                                        {header.map((h, index) =>
+                                            <td key={`data-${index}`}>
+                                                {row[h.column]}
+                                            </td>
+                                        )}
+                                    </tr>
+                                ))
+                            )
+                        }
                     </tbody>
                 </ReactstrapTable>
             </div>
