@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import api from '../../api';
 import PageContent from '../../components/page-content';
 import PageHeader from '../../components/page-header';
+import { Button } from "../../../src/components/button"
 
 import { FaCheck } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
@@ -13,6 +14,11 @@ export const DocumentDetails = () => {
     const [document, setDocument] = useState({});
 
     const params = useParams();
+    const history = useHistory();
+
+    const handleBackToMasterList = () => {
+        history.push("/list");
+    }
 
     useEffect(() => {
         api.get(`/documents/${params.id}`)
@@ -69,6 +75,9 @@ export const DocumentDetails = () => {
                         )
                     }
                     
+                    <div className="back-btn-wrapper">
+                        <Button className="back-masterlist-btn" title="Back" onClick={handleBackToMasterList}/>
+                    </div>
                 </div>
             </PageContent>
         </div>

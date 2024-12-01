@@ -28,3 +28,16 @@
         font-size: 0.75em;
     }
 }
+
+.back-btn-wrapper {
+    display: flex;
+
+    margin-top: .5rem;
+    margin-left: 22rem;
+}
+
+.back-masterlist-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
