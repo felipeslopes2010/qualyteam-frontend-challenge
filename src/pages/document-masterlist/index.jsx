@@ -8,7 +8,6 @@ import { DocumentFilter } from './components/document-filter';
 
 export const DocumentMasterList = () => {
     const [documents, setDocuments] = useState([]);
-    const [formattedRows, setFormattedRows] = useState([]);
     const [page, setPage] = useState(1);
 
     const history = useHistory();
@@ -31,30 +30,29 @@ export const DocumentMasterList = () => {
         }));
     };
 
-    function handleOpenDocumentDetails(documentId) {
+    const handleOpenDocumentDetails = (documentId) => {
         history.push(`/document-details/${documentId}`);
+    }
+
+    const handleFilterResults = (filteredDocuments) => {
+        setDocuments(mapDocumentsToRows(filteredDocuments));
+        setPage(1);
     }
 
     useEffect(() => {
         api.get(`/documents`)
             .then(response => {
-                setDocuments(response.data);
-                setFormattedRows(mapDocumentsToRows(response.data));
+                setDocuments(mapDocumentsToRows(response.data));
             })
             .catch(error => console.log(error));
     }, []);
-
-    function handleFilterResults(filteredDocuments) {
-        setFormattedRows(mapDocumentsToRows(filteredDocuments));
-        setPage(1);
-    }
 
     return (
         <div>
             <PageHeader title="Master List" />
             <PageContent>
                 <DocumentFilter onFilter={handleFilterResults} />
-                <Table header={header} rows={formattedRows} itemsPerPage={5} setPage={setPage} page={page} />
+                <Table header={header} rows={documents} itemsPerPage={5} setPage={setPage} page={page} />
             </PageContent>
         </div>
     );
