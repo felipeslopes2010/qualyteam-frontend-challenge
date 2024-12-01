@@ -26,7 +26,7 @@ export const DocumentMasterList = () => {
             code: document.code,
             title: document.title,
             releaseDate: document['release-date'],
-            processes: document.processes?.map(process => process.name).join(', ') || "Nenhum processo adicionado",
+            processes: document.processes?.map(process => process.name).join(', ') || "No process add",
             onClick: () => handleOpenDocumentDetails(document.id)
         }));
     };
