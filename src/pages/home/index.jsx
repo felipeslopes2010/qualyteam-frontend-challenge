@@ -10,32 +10,32 @@ export const Home = () => {
     return (
         <>
             <PageHeader
-                title="Inicio"
-                caption="Aqui você pode navegar para outras funções do sistema"
+                title="Home"
+                caption="Here you can navigate to other functions of the system"
             />
             <PageContent>
                 <Row gutter={8}>
                     <Col style={{ marginBottom: '24px' }} sm={6} md={6} lg={4}>
                         <RouteCard
                             title="Master List"
-                            caption="Ver listagem de documentos"
-                            actionText="Ir"
+                            caption="View document listing"
+                            actionText="Go"
                             route="/list"
                         />
                     </Col>
                     <Col style={{ marginBottom: '24px' }} sm={6} md={6} lg={4}>
                         <RouteCard
-                            title="Criar Documento"
-                            caption="Inserir novo documento"
-                            actionText="Ir"
+                            title="Creat Document"
+                            caption="Insert new document"
+                            actionText="Go"
                             disabled
                         />
                     </Col>
                     <Col style={{ marginBottom: '24px' }} sm={6} md={6} lg={4}>
                         <RouteCard
-                            title="Relatórios"
-                            caption="Ver relatórios do documento"
-                            actionText="Ir"
+                            title="Reports"
+                            caption="View documents reports"
+                            actionText="Go"
                             disabled
                         />
                     </Col>
