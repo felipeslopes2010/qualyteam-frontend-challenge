@@ -15,8 +15,11 @@ export const DocumentFilter = ({ onFilter }) => {
     const [filteredProcess, setFilteredProcess] = useState('');
     const [processes, setProcesses] = useState([]);
     const [shouldFilterAfterErase, setShouldFilterAfterErase] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSearchDocumentsUsingFilter = async () => {
+        setIsLoading(true);
+
         try {
             if (filteredTitle && filteredProcess) {
                 const documentsResponse = await api.get(`/documents?title_like=${filteredTitle}`);
@@ -55,6 +58,8 @@ export const DocumentFilter = ({ onFilter }) => {
             }
         } catch (error) {
             console.error(error);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -103,10 +108,10 @@ export const DocumentFilter = ({ onFilter }) => {
                 />
             </div>
             <div className="document-filter-buttons-wrapper">
-                <Button title="Erase" aria-label="Erase" className="document-filter-erase" onClick={handleEraseFilterInput}>
+                <Button title="Erase" aria-label="Erase" className="document-filter-erase" onClick={handleEraseFilterInput} disabled={isLoading}>
                     <RxEraser size={16} />
                 </Button>
-                <Button title="Filter" aria-label="Filter" onClick={handleSearchDocumentsUsingFilter}>
+                <Button title="Filter" aria-label="Filter" onClick={handleSearchDocumentsUsingFilter} disabled={isLoading}>
                     <TfiSearch size={16} />
                 </Button>
             </div>
