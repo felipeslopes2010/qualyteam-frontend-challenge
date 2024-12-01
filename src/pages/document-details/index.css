@@ -1,0 +1,30 @@
+.document-details-container {
+    max-width: 500px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .5rem;
+
+    margin: 80px auto;
+    padding: 2rem;
+
+    border: 2px solid #6c757d;
+}
+
+.document-info {
+    display: flex;
+    gap: 0.5rem;
+
+    > label {
+        font-weight: 700;
+    }
+
+    > ul {
+        padding-left: 1.5rem;
+    }
+
+    ul li::marker {
+        font-size: 0.75em;
+    }
+}
