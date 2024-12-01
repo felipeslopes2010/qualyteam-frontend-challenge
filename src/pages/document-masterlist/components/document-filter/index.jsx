@@ -16,7 +16,7 @@ export const DocumentFilter = ({ onFilter }) => {
     const [processes, setProcesses] = useState([]);
     const [shouldFilterAfterErase, setShouldFilterAfterErase] = useState(false);
 
-    async function handleSearchDocumentsUsingFilter() {
+    const handleSearchDocumentsUsingFilter = async () => {
         try {
             if (filteredTitle && filteredProcess) {
                 const documentsResponse = await api.get(`/documents?title_like=${filteredTitle}`);
@@ -58,14 +58,14 @@ export const DocumentFilter = ({ onFilter }) => {
         }
     }
 
-    function handleEraseFilterInput() {
+    const handleEraseFilterInput = () => {
         setFilteredTitle('');
         setFilteredProcess('');
         setShouldFilterAfterErase(true);
     }
 
     useEffect(() => {
-        async function fetchProcesses() {
+        const fetchProcesses = async() => {
             try {
                 const processResponse = await api.get('/processes');
                 setProcesses(processResponse.data);
